@@ -65,7 +65,7 @@
 
   (testing "deep shadow attributes"
     (is (= {:tags [{:name "foo"} {:name "bar"}]}
-           (pull {}
+           (pull {:tags {:age 10}}
                  [{:tags [:name]}]
                  {:shadow
                   {:tags
