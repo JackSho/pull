@@ -75,7 +75,9 @@
                    acc)
 
                  (join? prop)
-                 (conj acc (join-prop prop local global opts))
+                 (if (contains? local (ffirst prop))
+                   (conj acc (join-prop prop local global opts))
+                   acc)
                  :otherwise acc))
              {}
              query))))
