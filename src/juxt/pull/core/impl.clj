@@ -40,7 +40,7 @@
   [global [k v] q opts]
   (if (all-findable? v)
       {k (mapv #(pull global % q opts) v)}
-      [k (pull global v q opts)]))
+      {k (pull global v q opts)}))
 
 (defn join-prop
   [prop local global opts]
@@ -75,9 +75,10 @@
                    acc)
 
                  (join? prop)
-                 (if (contains? local (ffirst prop))
-                   (conj acc (join-prop prop local global opts))
-                   acc)
+                 (let [joined-prop (join-prop prop local global opts)]
+                   (if (= (ffirst joined-prop) (ffirst prop))
+                     (conj acc joined-prop)
+                     acc))
                  :otherwise acc))
              {}
              query))))
